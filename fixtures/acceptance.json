@@ -1,0 +1,36 @@
+{
+  "context": {
+    "capacity": 20
+  },
+  "items": [
+    {
+      "id": "case-1",
+      "owner_id": "person-1",
+      "steps": [
+        {
+          "id": "intake",
+          "requires": []
+        },
+        {
+          "id": "review",
+          "requires": [
+            "intake"
+          ]
+        },
+        {
+          "id": "deliver",
+          "requires": [
+            "review"
+          ]
+        }
+      ],
+      "completed": [
+        "intake"
+      ],
+      "demand": 1,
+      "amount": "0",
+      "effective_from": "2026-11-16",
+      "request_key": "acceptance-1"
+    }
+  ]
+}
