@@ -1,0 +1,232 @@
+{
+  "as_of": "2026-11-20T16:00:00+00:00",
+  "calendar": {
+    "name": "gov",
+    "periods": [
+      {
+        "weekday": 0,
+        "start": "09:00",
+        "end": "17:00"
+      },
+      {
+        "weekday": 1,
+        "start": "09:00",
+        "end": "17:00"
+      },
+      {
+        "weekday": 2,
+        "start": "09:00",
+        "end": "17:00"
+      },
+      {
+        "weekday": 3,
+        "start": "09:00",
+        "end": "17:00"
+      },
+      {
+        "weekday": 4,
+        "start": "09:00",
+        "end": "17:00"
+      }
+    ],
+    "holidays": [
+      "2026-11-18"
+    ]
+  },
+  "cases": [
+    {
+      "case_id": "case-minute",
+      "opened_at": "2026-11-16T09:00:00+00:00",
+      "closed_at": "2026-11-19T15:00:00+00:00",
+      "target_seconds": 28800,
+      "service_version": "v1",
+      "batch_id": "batch-A",
+      "outcome": "completed",
+      "steps": [
+        {
+          "id": "intake",
+          "requires": []
+        },
+        {
+          "id": "review",
+          "requires": [
+            "intake"
+          ]
+        },
+        {
+          "id": "deliver",
+          "requires": [
+            "review"
+          ]
+        }
+      ],
+      "timeline": [
+        {
+          "kind": "step_started",
+          "step_id": "intake",
+          "occurred_at": "2026-11-16T09:00:00+00:00"
+        },
+        {
+          "kind": "step_completed",
+          "step_id": "intake",
+          "occurred_at": "2026-11-16T10:00:00+00:00"
+        },
+        {
+          "kind": "step_started",
+          "step_id": "review",
+          "occurred_at": "2026-11-16T13:00:00+00:00"
+        },
+        {
+          "kind": "correction_requested",
+          "step_id": "review",
+          "occurred_at": "2026-11-16T14:00:00+00:00"
+        },
+        {
+          "kind": "correction_received",
+          "step_id": "review",
+          "occurred_at": "2026-11-17T10:00:00+00:00"
+        },
+        {
+          "kind": "step_failed",
+          "step_id": "review",
+          "occurred_at": "2026-11-17T15:00:00+00:00"
+        },
+        {
+          "kind": "compensation_started",
+          "step_id": "review",
+          "occurred_at": "2026-11-17T15:00:00+00:00"
+        },
+        {
+          "kind": "compensation_completed",
+          "step_id": "review",
+          "occurred_at": "2026-11-17T16:00:00+00:00"
+        },
+        {
+          "kind": "rework_started",
+          "step_id": "review",
+          "occurred_at": "2026-11-19T09:00:00+00:00"
+        },
+        {
+          "kind": "rework_completed",
+          "step_id": "review",
+          "occurred_at": "2026-11-19T10:00:00+00:00"
+        },
+        {
+          "kind": "step_completed",
+          "step_id": "review",
+          "occurred_at": "2026-11-19T10:00:00+00:00"
+        },
+        {
+          "kind": "step_started",
+          "step_id": "deliver",
+          "occurred_at": "2026-11-19T13:00:00+00:00"
+        },
+        {
+          "kind": "step_completed",
+          "step_id": "deliver",
+          "occurred_at": "2026-11-19T15:00:00+00:00"
+        }
+      ]
+    },
+    {
+      "case_id": "case-ontime",
+      "opened_at": "2026-11-16T09:00:00+00:00",
+      "closed_at": "2026-11-16T16:00:00+00:00",
+      "target_seconds": 28800,
+      "service_version": "v1",
+      "batch_id": "batch-A",
+      "outcome": "completed",
+      "steps": [
+        {
+          "id": "intake",
+          "requires": []
+        }
+      ],
+      "timeline": [
+        {
+          "kind": "step_started",
+          "step_id": "intake",
+          "occurred_at": "2026-11-16T09:00:00+00:00"
+        },
+        {
+          "kind": "step_completed",
+          "step_id": "intake",
+          "occurred_at": "2026-11-16T16:00:00+00:00"
+        }
+      ]
+    },
+    {
+      "case_id": "case-gap",
+      "opened_at": "2026-11-16T09:00:00+00:00",
+      "closed_at": "2026-11-16T12:00:00+00:00",
+      "target_seconds": 28800,
+      "service_version": "v2",
+      "batch_id": "batch-B",
+      "outcome": "completed",
+      "steps": [
+        {
+          "id": "intake",
+          "requires": []
+        }
+      ],
+      "timeline": [
+        {
+          "kind": "step_completed",
+          "step_id": "intake",
+          "occurred_at": "2026-11-16T12:00:00+00:00"
+        }
+      ]
+    },
+    {
+      "case_id": "case-open",
+      "opened_at": "2026-11-16T09:00:00+00:00",
+      "target_seconds": 28800,
+      "service_version": "v2",
+      "batch_id": "batch-B",
+      "outcome": "in_progress",
+      "steps": [
+        {
+          "id": "intake",
+          "requires": []
+        }
+      ],
+      "timeline": [
+        {
+          "kind": "opened",
+          "occurred_at": "2026-11-16T09:00:00+00:00"
+        },
+        {
+          "kind": "step_started",
+          "step_id": "intake",
+          "occurred_at": "2026-11-16T09:00:00+00:00"
+        }
+      ]
+    },
+    {
+      "case_id": "case-cancelled",
+      "opened_at": "2026-11-16T09:00:00+00:00",
+      "closed_at": "2026-11-16T10:00:00+00:00",
+      "target_seconds": 28800,
+      "service_version": "v2",
+      "batch_id": "batch-B",
+      "outcome": "cancelled",
+      "steps": [
+        {
+          "id": "intake",
+          "requires": []
+        }
+      ],
+      "timeline": [
+        {
+          "kind": "opened",
+          "occurred_at": "2026-11-16T09:00:00+00:00"
+        },
+        {
+          "kind": "closed",
+          "occurred_at": "2026-11-16T10:00:00+00:00",
+          "outcome": "cancelled"
+        }
+      ]
+    }
+  ]
+}

@@ -7,6 +7,7 @@ from collections import Counter, defaultdict
 from typing import Any, Iterable, Mapping, Sequence
 from .audit import AuditVerifier
 from .storage import Database
+from .timeliness import TimelinessAnalyzer, analyze_records
 
 class Reporter:
     def __init__(self,database:Database): self.database=database
@@ -43,3 +44,27 @@ class Reporter:
             if row['effective_to'] and row['effective_to']<row['effective_from']: issues.append({'id':row[f'{kind}_id'],'code':'reversed_period'})
             if int(row['quantity'])<0: issues.append({'id':row[f'{kind}_id'],'code':'negative_quantity'})
         return {'kind':kind,'records':len(rows),'issues':issues,'valid':not issues}
+
+    def timeliness(self,as_of=None,minimum_bottleneck_cases:int=1) -> dict[str,Any]:
+        """Attribution summary grouped by step, service version and batch.
+
+        Uses the timeline stored on case records; when records were written
+        without a timeline the cases are reported as evidence insufficient
+        rather than assumed on time.
+        """
+        from .timeliness import summarize
+        report=analyze_records(self.database.list_records('case'),as_of=as_of)
+        payload=report.as_dict(include_segments=False)
+        payload['summary']=summarize(report.cases,minimum_bottleneck_cases)
+        payload['summary']['minimum_bottleneck_cases']=minimum_bottleneck_cases
+        return payload
+
+    def timeliness_case(self,case_id:str,as_of=None) -> dict[str,Any]:
+        """Full calculation basis for one case, including every segment.
+
+        Raises ``NotFoundError`` when the case record does not exist so a
+        supervisor cannot mistake a missing record for a compliant one.
+        """
+        record=self.database.get_record('case',case_id)
+        report=TimelinessAnalyzer().analyze_records([record],as_of=as_of)
+        return report.cases[0].as_dict()
